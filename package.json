@@ -1,0 +1,39 @@
+{
+  "name": "turnip-bot",
+  "version": "1.0.0",
+  "description": "Get quick notifications on turnip prices!",
+  "main": "index.ts",
+  "scripts": {
+    "reddit": "tsc && node dist/src/index.js reddit",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anthonykrivonos/turnip-bot.git"
+  },
+  "keywords": [
+    "animal",
+    "crossing",
+    "turnip",
+    "bot"
+  ],
+  "author": "Anthony Krivonos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anthonykrivonos/turnip-bot/issues"
+  },
+  "homepage": "https://github.com/anthonykrivonos/turnip-bot#readme",
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "@types/node-cron": "^2.0.3",
+    "@types/selenium-webdriver": "^4.0.9",
+    "chromedriver": "^83.0.0",
+    "compromise": "^13.2.0",
+    "compromise-numbers": "^1.0.0",
+    "node-cron": "^2.0.3",
+    "selenium-webdriver": "^4.0.0-alpha.7"
+  }
+}
