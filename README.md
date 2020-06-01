@@ -1,8 +1,8 @@
 # 🧄 turnip-bot
 
-Scrapes Reddit for the best Turnip prices in **Animal Crossings: New Horizons**!
+Scrape Reddit for the best Turnip prices in **Animal Crossings: New Horizons**!
 
-> Disclaimer: Use at your own discretion. This code is licensed under the MIT license (see [LICENSE.MD](LICENSE.MD)) and is free for anyone to use or modify. All authors of this package are removed of any liabilities concerning usage of turnip-bot.
+> Disclaimer: Use at your own discretion. This code is licensed under the MIT license (see [LICENSE.md](LICENSE.md)) and is free for anyone to use or modify. All authors of this package are removed of any liabilities concerning usage of turnip-bot.
 
 ## 🦝 Usage
 
@@ -29,6 +29,8 @@ npm run reddit
 
 ## 🔷 Output Shape
 
+The result is always returned as a `Post` object.
+
 #### Post
 
 - **`id`** (`string`): *The unique ID of the post.*
@@ -37,6 +39,8 @@ npm run reddit
 - **`url`** (`string`): *A direct link to the post.*
 - **`title`** (`title`): *The original title of the post.*
 - **`poster`** (`Poster`): *The original poster (OP).*
+
+Within a `Post` object is an object called `Poster`, which contains information on the user who made the post.
 
 #### Poster
 
