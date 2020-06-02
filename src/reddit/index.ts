@@ -1,8 +1,12 @@
-import 'chromedriver'
+// @ts-ignore
+import chromedriver from 'chromedriver'
+import chrome from 'selenium-webdriver/chrome'
 import { Builder, By } from 'selenium-webdriver'
 
 import { Post, Poster } from '../interfaces'
 import { getPriceFromString, getBuySell, getPosterInfoFromFlair } from '../parsing'
+
+chrome.setDefaultService(new chrome.ServiceBuilder(chromedriver.path).build())
 
 /**
  * Exchange URLS.
@@ -15,6 +19,10 @@ const AC_TURNIP_EXCHANGE_URL = 'https://reddit.com/r/acturnips/new/?f=flair_name
 const AC_NEW_HORIZONS = 'SW'
 const isACNH = (title:string) => title.toUpperCase().includes(AC_NEW_HORIZONS)
 
+/**
+ * Returns the entire list of turnips posts off r/acturnips.
+ * @param url The URL of r/acturnips. (defaults to the Reddit URL of r/acturnips)
+ */
 export const getLatest = async (url: string = AC_TURNIP_EXCHANGE_URL) => {
     let driver = await new Builder().forBrowser('chrome').build()
     let latestPosts = []
@@ -39,21 +47,19 @@ export const getLatest = async (url: string = AC_TURNIP_EXCHANGE_URL) => {
                     // Extract the price
                     let price = getPriceFromString(titleText)
 
-                    if (price === null) {
-                        // Couldn't get a price from the title, we now search the body
-                        const bodyElements = await post.findElements(By.tagName('p'))
-                        for (const bodyElement of bodyElements) {
-                            const bodyText = await bodyElement.getAttribute('innerHTML')
-                    
-                            // Extract the price
-                            price = getPriceFromString(bodyText)
+                    let body = ''
 
-                            if (price !== null) {
-                                break
-                            }
-                        }
+                    // Couldn't get a price from the title, we now search the body
+                    const bodyElements = await post.findElements(By.tagName('p'))
+                    for (const bodyElement of bodyElements) {
+                        const bodyText = await bodyElement.getAttribute('innerHTML')
+                        body += `${bodyText} `
                     }
 
+                    if (price === null) {
+                        // Try to get the price out of the body.
+                        price = getPriceFromString(body)
+                    }
                     if (price === null) {
                         // After searching the body, we still haven't found a price
                         continue
@@ -97,6 +103,7 @@ export const getLatest = async (url: string = AC_TURNIP_EXCHANGE_URL) => {
                         poster,
                         url,
                         title: titleText,
+                        body,
                     } as Post
 
                     latestPosts.push(postObject)

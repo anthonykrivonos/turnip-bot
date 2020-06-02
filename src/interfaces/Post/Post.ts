@@ -8,4 +8,5 @@ export interface Post {
     // TODO: createdAt: Date
     url: string
     title: string
+    body?: string
 }

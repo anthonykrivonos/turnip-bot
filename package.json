@@ -4,7 +4,7 @@
   "description": "Get quick notifications on turnip prices!",
   "main": "index.ts",
   "scripts": {
-    "reddit": "tsc && node dist/src/index.js reddit",
+    "reddit": "tsc && node dist/src/scripts/index.js reddit",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -34,6 +34,7 @@
     "compromise": "^13.2.0",
     "compromise-numbers": "^1.0.0",
     "node-cron": "^2.0.3",
-    "selenium-webdriver": "^4.0.0-alpha.7"
+    "selenium-webdriver": "^4.0.0-alpha.7",
+    "skedula": "^1.0.3"
   }
 }

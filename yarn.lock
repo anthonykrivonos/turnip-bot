@@ -577,6 +577,14 @@ set-immediate-shim@~1.0.1:
   resolved "https://registry.yarnpkg.com/set-immediate-shim/-/set-immediate-shim-1.0.1.tgz#4b2b1b27eb808a9f8dcc481a58e5e56f599f3f61"
   integrity sha1-SysbJ+uAip+NzEgaWOXlb1mfP2E=
 
+skedula@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/skedula/-/skedula-1.0.3.tgz#389c87089ac49443dde3292a2560c3540dbf274f"
+  integrity sha512-93DQp5ewMRu18EDqh5eQKezWT726qZhKd1EYP0o0Xt2eBw0KQfV1JuGrhVxSXgcFSctS6VAfX+4lpC3bPa9ouQ==
+  dependencies:
+    "@types/node-cron" "^2.0.3"
+    node-cron "^2.0.3"
+
 slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"

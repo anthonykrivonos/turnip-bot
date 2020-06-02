@@ -67,10 +67,13 @@ export const getPriceFromString = (post: string) => {
     if (parsedNumbers.length === 0) {
         return null
     } else if (parsedNumbers.length > 1) {
+        const priceMap:any = {}
         let maxLikelihoodPrice = parsedNumbers[0]
         let maxLikelihood = getLikelihood(parsedNumbers[0])
         for (const price of parsedNumbers) {
-            const likelihood = getLikelihood(price)
+            const occurrences = priceMap[price] != null ? priceMap[price] + 1 : 1
+            priceMap[price] = occurrences
+            const likelihood = getLikelihood(price) * occurrences
             if (likelihood >= maxLikelihood) {
                 maxLikelihood = likelihood
                 maxLikelihoodPrice = price
