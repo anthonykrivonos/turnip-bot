@@ -1,9 +1,12 @@
 {
   "name": "turnip-bot",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Track turnip prices for Animal Crossing: New Horizons!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "reddit": "tsc --declaration && node dist/src/scripts/index.js reddit",
     "build": "tsc --declaration",

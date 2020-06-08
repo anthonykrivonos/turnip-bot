@@ -8,7 +8,11 @@ import { getPriceFromString, getBuySell, getPosterInfoFromFlair } from '../parsi
  */
 
 /** AC Turnip Exchange Subreddit as JSON Response */
-const AC_TURNIP_EXCHANGE_URL = 'https://reddit.com/r/acturnips/new.json?f=flair_name%3A"Active"'
+export const AC_TURNIP_EXCHANGE_URL = 'https://reddit.com/r/acturnips/new.json?f=flair_name%3A"Active"'
+export const ACNH_TURNIPS_HOSTING_NOOKS =
+	'https://www.reddit.com/r/ACNHTurnips/new.json?f=flair_name%3A%22Hosting%20Nooks%22'
+export const ACNH_TURNIPS_HOSTING_DAISY =
+	'https://www.reddit.com/r/ACNHTurnips/new.json?f=flair_name%3A%22Hosting%20Nooks%22'
 
 /** AC version */
 const AC_NEW_HORIZONS = 'SW'
@@ -18,7 +22,7 @@ export const pullLatest = async (url: string = AC_TURNIP_EXCHANGE_URL) => {
 	const latestPosts: Post[] = []
 	try {
 		const res = await (
-			await fetch(AC_TURNIP_EXCHANGE_URL, {
+			await fetch(url, {
 				method: 'GET',
 			})
 		).json()
@@ -38,7 +42,7 @@ export const pullLatest = async (url: string = AC_TURNIP_EXCHANGE_URL) => {
 				// Malformed post
 				continue
 			}
-			if (!isACNH(redditPostData.title)) {
+			if (url === AC_TURNIP_EXCHANGE_URL && !isACNH(redditPostData.title)) {
 				// Wrong game, not ACNH
 				continue
 			}
@@ -52,11 +56,19 @@ export const pullLatest = async (url: string = AC_TURNIP_EXCHANGE_URL) => {
 				price = 0
 			}
 
+			const poster = getPosterInfoFromFlair(redditPostData.author_flair_text)
+			poster.profileUrl = `https://www.reddit.com/user/${redditPostData.author}`
+
 			const post = {
 				id: redditPostData.id,
-				type: getBuySell(price),
+				type:
+					url === AC_TURNIP_EXCHANGE_URL
+						? getBuySell(price)
+						: url === ACNH_TURNIPS_HOSTING_NOOKS
+						? 'buy'
+						: 'sell',
 				price,
-				poster: getPosterInfoFromFlair(redditPostData.author_flair_text),
+				poster,
 				url: redditPostData.url,
 				body: redditPostData.selftext,
 				title: redditPostData.title,

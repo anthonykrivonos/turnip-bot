@@ -166,9 +166,12 @@ export const getBuySell = (price: number) => {
 	return 'buy'
 }
 
-export const getPosterInfoFromFlair = (redditFlair: string) => {
-	const redditFlairSplit = redditFlair.trim().split(' ')
+export const getPosterInfoFromFlair = (redditFlair: string | null | undefined) => {
 	const poster = {} as Poster
+	if (!redditFlair) {
+		return poster
+	}
+	const redditFlairSplit = redditFlair!.trim().split(' ')
 	for (let i = 0; i < redditFlairSplit.length; i++) {
 		const component = redditFlairSplit[i].trim()
 
