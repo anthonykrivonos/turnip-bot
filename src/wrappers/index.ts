@@ -4,7 +4,7 @@ import { pullLatest } from '../reddit'
 import { Post, Source } from '../interfaces'
 import { Database } from '../database'
 
-const MIN_POLLING_INTERVAL_S = 15
+const MIN_POLLING_INTERVAL_S = 20
 
 export const subscribeToNewPosts = (
 	onNewPost: (_: Post) => void,

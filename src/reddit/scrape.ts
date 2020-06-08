@@ -108,5 +108,5 @@ export const scrapeLatest = async (url: string = AC_TURNIP_EXCHANGE_URL) => {
 	} finally {
 		await driver.quit()
 	}
-    return latestPosts
+	return latestPosts
 }

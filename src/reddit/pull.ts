@@ -69,5 +69,5 @@ export const pullLatest = async (url: string = AC_TURNIP_EXCHANGE_URL) => {
 		console.error(e)
 		throw e
 	}
-    return latestPosts
+	return latestPosts
 }

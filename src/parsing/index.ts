@@ -34,8 +34,8 @@ const cleanNumbers = (text: string) => {
 	if (text.length === 0) {
 		return text
 	}
-    let newText = ''
-    let i = 0
+	let newText = ''
+	let i = 0
 	for (; i < text.length; i++) {
 		const char = text[i]
 		newText += char

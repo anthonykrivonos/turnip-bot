@@ -1,2 +1,2 @@
-export * from './reddit'
+export * from './wrappers'
 export * from './interfaces'
