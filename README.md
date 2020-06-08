@@ -4,9 +4,29 @@ Scrape Reddit for the best Turnip prices in **Animal Crossings: New Horizons**!
 
 > Disclaimer: Use at your own discretion. This code is licensed under the MIT license (see [LICENSE.md](LICENSE.md)) and is free for anyone to use or modify. All authors of this package are removed of any liabilities concerning usage of turnip-bot.
 
-## 🦝 Usage
+## 🐗 Usage (NPM)
 
-> If the demand arises, this package will be moved to [NPM](https://npmjs.org/) and will be installable as a package.
+`npm install turnip-bot --save`
+
+```
+import { subscribeToNewPosts, Post } from 'turnip-bot`
+
+// Should the bot log its progress? It's helpful to do so.
+const verbose = true
+
+// Polling interval in seconds (min 15)
+const pollingInterval = 30
+
+// Called whenever a new post is scraped
+const onNewPost = (post:Post) => {
+    console.log('Got new post')
+    console.log(post)
+}
+
+subscribeToNewPosts(onNewPost, pollingInterval, verbose)
+```
+
+## 🦝 Usage (Local)
 
 1. Clone the repo.
 ```

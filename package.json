@@ -1,12 +1,19 @@
 {
   "name": "turnip-bot",
   "version": "1.0.0",
-  "description": "Get quick notifications on turnip prices!",
+  "description": "Track turnip prices for Animal Crossing: New Horizons!",
   "main": "index.ts",
   "scripts": {
-    "reddit": "tsc && node dist/src/scripts/index.js reddit",
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "reddit": "tsc --declaration && node dist/src/scripts/index.js reddit",
+    "build": "tsc --declaration",
+    "test": "mocha -r ts-node/register tst/**/*.spec.ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "lint": "tslint -p tsconfig.json",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -16,7 +23,9 @@
     "animal",
     "crossing",
     "turnip",
-    "bot"
+    "bot",
+    "reddit",
+    "discord"
   ],
   "author": "Anthony Krivonos",
   "license": "MIT",
@@ -29,12 +38,24 @@
   },
   "dependencies": {
     "@types/node-cron": "^2.0.3",
+    "@types/node-fetch": "^2.5.7",
     "@types/selenium-webdriver": "^4.0.9",
+    "autocorrect": "^1.2.0",
     "chromedriver": "^83.0.0",
     "compromise": "^13.2.0",
     "compromise-numbers": "^1.0.0",
     "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.0",
     "selenium-webdriver": "^4.0.0-alpha.7",
-    "skedula": "^1.0.3"
+    "skedula": "^1.0.3",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "prettier": "^1.18.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-etc": "~1.6.0"
   }
 }
