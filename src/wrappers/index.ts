@@ -46,7 +46,7 @@ export const subscribeToNewPosts = (
 				}
 				if (post.createdAt) {
 					const fiveMinutesAgo = lastPollDate
-					fiveMinutesAgo.setTime(fiveMinutesAgo.getTime() + 5 * 60 * 1000)
+					fiveMinutesAgo.setTime(fiveMinutesAgo.getTime() - 5 * 60 * 1000)
 					if (post.createdAt! < fiveMinutesAgo) {
 						// Old post
 						continue
