@@ -1,5 +1,3 @@
-import { Skedula } from 'skedula'
-
 import { pullLatest, AC_TURNIP_EXCHANGE_URL } from '../reddit'
 import { Post, Source } from '../interfaces'
 import { Database } from '../database'
@@ -30,7 +28,10 @@ export const subscribeToNewPosts = (
 	const postIdsSeen = {} as any
 	let lastPollDate = new Date()
 	verbose && console.log(`Verbosely fetching latest posts...`)
-	Skedula.secondInterval(async () => {
+
+	// Recursively poll
+	const asyncPull = async () => {
+		const startTime = new Date()
 		const latestPosts = (await Promise.all(sourceUrls.map(url => pullLatest(url)))).reduce(
 			(arr, row) => arr.concat(row),
 			[],
@@ -69,10 +70,18 @@ export const subscribeToNewPosts = (
 				console.log(
 					`- ${newPostCount === 0 ? 'No' : newPostCount} new post${newPostCount !== 1 ? 's' : ''} found`,
 				)
+			if (pollingIntervalSec >= 30) {
+				const pullTimeMs = new Date().getTime() - startTime.getTime()
+				setTimeout(asyncPull, pollingIntervalSec * 1000 - pullTimeMs)
+			} else {
+				asyncPull()
+			}
 		} catch (e) {
 			verbose && console.error(e)
 		}
-	}, pollingIntervalSec)
+	}
+
+	asyncPull()
 }
 
 export { AC_TURNIP_EXCHANGE_URL, ACNH_TURNIPS_HOSTING_NOOKS, ACNH_TURNIPS_HOSTING_DAISY } from '../reddit'
